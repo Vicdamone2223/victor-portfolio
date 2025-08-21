@@ -21,9 +21,10 @@ export default function Hero() {
     rotateX.set(-((y - midY) / midY) * 6);
   }
 
-  // scroll parallax on the image card
-  const { scrollYProgress } = useScroll({ target: cardRef, offset: ['start end', 'end start'] });
-  const yParallax = prefersReducedMotion ? 0 : useTransform(scrollYProgress, [0, 1], [20, -20]);
+// scroll parallax (must not call useTransform conditionally)
+const { scrollYProgress } = useScroll({ target: cardRef, offset: ['start end', 'end start'] });
+const yParallax = useTransform(scrollYProgress, [0, 1], [20, -20]); // always called
+
 
   return (
     <section className="relative isolate overflow-hidden pt-28 md:pt-36 lg:pt-40 pb-2 min-h-[70vh] flex items-start">
@@ -43,7 +44,7 @@ export default function Hero() {
           viewport={{ once: true }}
           whileHover={prefersReducedMotion ? {} : { scale: 1.02, boxShadow: '0 20px 60px rgba(0,0,0,0.45)' }}
           transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
-          style={{ y: yParallax, rotateX, rotateY, transformPerspective: 1000 }}
+          style={{ y: prefersReducedMotion ? 0 : yParallax, rotateX, rotateY, transformPerspective: 1000 }}
           className="order-1 lg:order-2 relative mx-auto w-full sm:max-w-lg rounded-3xl border border-white/10 bg-white/5 backdrop-blur p-2 sm:p-3 shadow-[0_10px_40px_rgba(0,0,0,0.35)]"
         >
           <div className="flex gap-2 pb-3 px-1">
