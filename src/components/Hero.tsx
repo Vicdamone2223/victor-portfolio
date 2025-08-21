@@ -27,7 +27,7 @@ const yParallax = useTransform(scrollYProgress, [0, 1], [20, -20]); // always ca
 
 
   return (
-    <section className="relative isolate overflow-hidden pt-28 md:pt-36 lg:pt-40 pb-2 min-h-[70vh] flex items-start">
+    <section className="relative isolate overflow-hidden pt-20 md:pt-36 lg:pt-40 pb-2 min-h-[70vh] flex items-start">
       {/* background */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(60%_80%_at_70%_10%,#10263d,transparent),linear-gradient(180deg,#0b1625,#0e1b2a)]" />
       <div className="absolute inset-0 -z-10 [mask-image:radial-gradient(60%_60%_at_70%_40%,#000_50%,transparent)] bg-[linear-gradient(#123_1px,transparent_1px),linear-gradient(90deg,#123_1px,transparent_1px)] bg-[size:24px_24px]" />
