@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
+/* --- App theme tokens --- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Keep site dark-first so native popovers render dark */
+  --background: #0b1625;
+  --foreground: #ffffff;
+  color-scheme: dark; /* <-- fixes native <select> popup colors */
 }
 
 @theme inline {
@@ -12,15 +15,72 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
+/* If you ever switch to a light theme globally */
+@media (prefers-color-scheme: light) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff;
+    --foreground: #171717;
+    /* color-scheme: light;  // uncomment if you truly go light-first */
   }
+}
+
+/* --- Base element styles --- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
+
+/* Better text selection */
+::selection {
+  background: rgba(255,255,255,0.18);
+  color: #fff;
+}
+
+/* Media defaults */
+img, svg, video, canvas {
+  display: block;
+  max-width: 100%;
+}
+
+/* --- Form fixes (dark theme) --- */
+
+/* Inputs/selects should show white text by default */
+input, textarea, select { color: #fff; }
+
+/* Placeholder contrast on dark */
+::placeholder { color: rgba(255,255,255,0.45); }
+
+/* Native <select> dropdown popover colors across browsers */
+select,
+select option,
+select optgroup {
+  background-color: #0e1b2a; /* close to site bg */
+  color: #fff;
+}
+
+/* Fix Chrome autofill yellow */
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: #fff;
+  box-shadow: 0 0 0px 1000px rgba(255,255,255,0.05) inset;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Keep I-beam in text fields even when we hide the OS cursor */
+input, textarea, [contenteditable="true"] { cursor: text !important; }
+
+/* Fallback: if Tailwind purges cursor-none, ensure it still works */
+.cursor-none { cursor: none !important; }
