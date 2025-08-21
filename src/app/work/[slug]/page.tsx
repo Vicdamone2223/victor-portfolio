@@ -3,9 +3,10 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { projects } from "../../../data/projects";
+import type { Project } from "../../../data/projects";
 
-// Helper: build JSON-LD per project type
-function buildProjectJsonLd(p: any) {
+// Helper: build JSON-LD per project type (typed)
+function buildProjectJsonLd(p: Project) {
   const base = {
     "@context": "https://schema.org",
     name: p.title,
@@ -21,8 +22,6 @@ function buildProjectJsonLd(p: any) {
         "@type": "SoftwareApplication",
         applicationCategory: "WebApplication",
         operatingSystem: "Any",
-        // Optional extras:
-        // offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
       };
     case "WebSite":
       return { ...base, "@type": "WebSite" };
@@ -46,7 +45,8 @@ export async function generateMetadata(
 
   const canonical = `https://victordigitalmedia.com/work/${proj.slug}`;
   const ogImage =
-    (Array.isArray(proj.images) && proj.images[0]) || "https://victordigitalmedia.com/og.jpg";
+    (Array.isArray(proj.images) && proj.images[0]) ||
+    "https://victordigitalmedia.com/og.jpg";
 
   return {
     title: `${proj.title} — Project`,
@@ -81,22 +81,34 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://victordigitalmedia.com/" },
-      { "@type": "ListItem", position: 2, name: "Work", item: "https://victordigitalmedia.com/work" },
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://victordigitalmedia.com/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Work",
+        item: "https://victordigitalmedia.com/work",
+      },
       { "@type": "ListItem", position: 3, name: proj.title, item: canonical },
     ],
   };
 
   return (
     <main className="px-6 py-14 max-w-6xl mx-auto">
-      <Link href="/work" className="text-white/60 hover:text-white">← Back</Link>
+      <Link href="/work" className="text-white/60 hover:text-white">
+        ← Back
+      </Link>
 
       <h1 className="mt-4 text-4xl font-semibold">{proj.title}</h1>
       {proj.summary && <p className="mt-2 text-white/70">{proj.summary}</p>}
 
       {Array.isArray(proj.stack) && proj.stack.length > 0 && (
         <div className="mt-6 flex flex-wrap gap-2">
-          {proj.stack.map((s: string) => (
+          {proj.stack.map((s) => (
             <span
               key={s}
               className="rounded-full bg-white/10 border border-white/10 px-3 py-1 text-sm"
@@ -109,7 +121,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
 
       {Array.isArray(proj.role) && proj.role.length > 0 && (
         <div className="mt-6 flex flex-wrap gap-2">
-          {proj.role.map((r: string) => (
+          {proj.role.map((r) => (
             <span
               key={r}
               className="rounded-full bg-white/5 border border-white/10 px-3 py-1 text-xs uppercase tracking-wide text-white/70"
@@ -133,7 +145,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2">
         {Array.isArray(proj.images) &&
-          proj.images.map((src: string) => (
+          proj.images.map((src) => (
             <div
               key={src}
               className="relative overflow-hidden rounded-xl border border-white/10 bg-black/20"

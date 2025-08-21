@@ -1,13 +1,33 @@
 // src/data/projects.ts
+
 export type Project = {
   slug: string;
   title: string;
+  /** Public/live URL for the project (optional) */
   live?: string;
-  summary: string;
-  role: string[];
-  stack: string[];
+
+  /** One-liner used in metadata/snippets */
+  summary?: string;
+
+  /** Your roles on the project */
+  role?: string[];
+
+  /** Tech stack / frameworks */
+  stack?: string[];
+
+  /** Extra tools/services used */
   tools?: string[];
-  images: string[]; // paths in /public
+
+  /** Screenshot paths (served from /public) */
+  images?: string[];
+
+  /**
+   * Selects JSON-LD type:
+   *  - "WebSite" for websites
+   *  - "SoftwareApplication" for apps (your directory app)
+   *  - "CreativeWork" if neither applies
+   */
+  type?: "WebSite" | "SoftwareApplication" | "CreativeWork";
 };
 
 export const projects: Project[] = [
@@ -26,6 +46,7 @@ export const projects: Project[] = [
       "/mobileforumhome.jpg",
       "/mobileforumpost.jpg",
     ],
+    type: "WebSite",
   },
   {
     slug: "perfumedefrance",
@@ -42,6 +63,7 @@ export const projects: Project[] = [
       "/mobileperfumehome.jpg",
       "/mobileperfumeproduct.jpg",
     ],
+    type: "WebSite",
   },
   {
     slug: "certifiedhealthacademy",
@@ -58,6 +80,7 @@ export const projects: Project[] = [
       "/mobilecoursehome.jpg",
       "/mobilecoursepage.jpg",
     ],
+    type: "WebSite",
   },
   {
     slug: "ablackmarketplace",
@@ -67,10 +90,7 @@ export const projects: Project[] = [
     role: ["Full-stack"],
     stack: ["React Native", "Node.js API", "Database"],
     tools: ["Maps", "Auth", "Push notifications"],
-    images: [
-      "/apphome.jpg",
-      "/appcategorylist.jpg",
-      "/appbusinesspage.jpg",
-    ],
+    images: ["/apphome.jpg", "/appcategorylist.jpg", "/appbusinesspage.jpg"],
+    type: "SoftwareApplication",
   },
 ];
