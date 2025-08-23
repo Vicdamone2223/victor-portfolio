@@ -164,8 +164,8 @@ export default function ContactCard() {
     defaultValue="$2K - 5K"
   >
     <option>$2K - 5K</option>
-    <option>$6K - 9K</option>
-    <option>10K and Up</option>
+    <option>$6K - 10K</option>
+    <option>$11K and Up</option>
   </select>
 </FormField>
 
