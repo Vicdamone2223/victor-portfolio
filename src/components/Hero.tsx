@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { motion, useMotionValue, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { useRef } from 'react';
 import LightningFX from './LightningFX';
+import MobileAurora from './MobileAurora';
 
 export default function Hero() {
   const prefersReducedMotion = useReducedMotion();
@@ -32,6 +33,9 @@ export default function Hero() {
       {/* background layers */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(60%_80%_at_70%_10%,#10263d,transparent),linear-gradient(180deg,#0b1625,#0e1b2a)]" />
       <div className="absolute inset-0 -z-10 [mask-image:radial-gradient(60%_60%_at_70%_40%,#000_50%,transparent)] bg-[linear-gradient(#123_1px,transparent_1px),linear-gradient(90deg,#123_1px,transparent_1px)] bg-[size:24px_24px]" />
+
+      {/* Mobile aurora (mobile only) */}
+      <MobileAurora className="md:hidden" />
 
       {/* ⚡ Lightning FX (desktop+ only; respects reduced motion) */}
       <LightningFX className="hidden md:block" />
