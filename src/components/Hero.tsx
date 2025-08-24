@@ -1,8 +1,10 @@
+// src/components/Hero.tsx
 'use client';
 
 import Image from 'next/image';
 import { motion, useMotionValue, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { useRef } from 'react';
+import LightningFX from './LightningFX';
 
 export default function Hero() {
   const prefersReducedMotion = useReducedMotion();
@@ -21,16 +23,18 @@ export default function Hero() {
     rotateX.set(-((y - midY) / midY) * 6);
   }
 
-// scroll parallax (must not call useTransform conditionally)
-const { scrollYProgress } = useScroll({ target: cardRef, offset: ['start end', 'end start'] });
-const yParallax = useTransform(scrollYProgress, [0, 1], [20, -20]); // always called
-
+  // scroll parallax (must not call useTransform conditionally)
+  const { scrollYProgress } = useScroll({ target: cardRef, offset: ['start end', 'end start'] });
+  const yParallax = useTransform(scrollYProgress, [0, 1], [20, -20]); // always called
 
   return (
     <section className="relative isolate overflow-hidden pt-20 md:pt-36 lg:pt-40 pb-2 min-h-[70vh] flex items-start">
-      {/* background */}
+      {/* background layers */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(60%_80%_at_70%_10%,#10263d,transparent),linear-gradient(180deg,#0b1625,#0e1b2a)]" />
       <div className="absolute inset-0 -z-10 [mask-image:radial-gradient(60%_60%_at_70%_40%,#000_50%,transparent)] bg-[linear-gradient(#123_1px,transparent_1px),linear-gradient(90deg,#123_1px,transparent_1px)] bg-[size:24px_24px]" />
+
+      {/* ⚡ Lightning FX (desktop+ only; respects reduced motion) */}
+      <LightningFX className="hidden md:block" />
 
       {/* image first on mobile, text first on desktop */}
       <div className="mx-auto w-full max-w-6xl px-6 grid gap-10 items-center lg:grid-cols-2">
