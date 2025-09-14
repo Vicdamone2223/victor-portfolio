@@ -6,7 +6,7 @@ export type Project = {
   /** Public/live URL for the project (optional) */
   live?: string;
 
-  /** One-liner used in metadata/snippets */
+  /** One-liner or short blurb used in metadata/snippets */
   summary?: string;
 
   /** Your roles on the project */
@@ -31,6 +31,42 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+  // ──────────────────────────────
+  // HowManyMics (new)
+  // ──────────────────────────────
+  {
+    slug: "howmanymics",
+    title: "HowManyMics",
+    live: "https://howmanymics.com",
+    summary:
+      "HowManyMics is a hip-hop knowledge hub that blends the critical authority of Pitchfork, the community ratings of Rotten Tomatoes, and the encyclopedic depth of Wikipedia. Fans and critics can explore artists, albums, reviews, debates, and cultural milestones in one interactive platform that keeps hip-hop’s past, present, and future all in one place.",
+    role: ["Full-stack"],
+    stack: [
+      "Next.js 15 (App Router, Server/Client Components)",
+      "Tailwind CSS",
+      "Supabase (Postgres, Storage, RLS/RPC)",
+      "Supabase Auth",
+      "Vercel",
+    ],
+    tools: [
+      "Admin CMS",
+      "Local Search / Slug Lookups",
+      "Instagram/Twitter Embeds",
+      "Staff & Fan Ratings Engine",
+      "Hip-hop Calendar",
+      "SEO / Metadata",
+    ],
+    images: [
+      "/howmanymics-desktop.jpg",
+      "/howmanymics-artist.jpg",
+      "/howmanymics-mobile.jpg",
+    ],
+    type: "WebSite",
+  },
+
+  // ──────────────────────────────
+  // Existing projects
+  // ──────────────────────────────
   {
     slug: "ablackweb",
     title: "A Black Web",
