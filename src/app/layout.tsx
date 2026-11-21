@@ -1,5 +1,6 @@
 // src/app/layout.tsx
 import type { Metadata } from "next";
+import Script from "next/script"; // <-- GA4
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -18,9 +19,7 @@ export const metadata: Metadata = {
   },
   description:
     "Web & app developer building fast, modern sites and custom directory apps for small businesses and creators.",
-  alternates: {
-    canonical: "/",
-  },
+  alternates: { canonical: "/" },
   icons: { icon: "/favicon.ico" },
   openGraph: {
     type: "website",
@@ -39,7 +38,6 @@ export const metadata: Metadata = {
     // images: ["/og.jpg"],
   },
   robots: { index: true, follow: true },
-  // If you have a Google Search Console token, uncomment:
   // verification: { google: "paste-your-code" },
 };
 
@@ -53,7 +51,6 @@ export default function RootLayout({
     name: "Victor",
     url: "https://victordigitalmedia.com",
     jobTitle: "Web & App Developer",
-    // Add links if you want:
     // sameAs: ["https://github.com/yourhandle", "https://www.linkedin.com/in/yourhandle/"],
   };
 
@@ -71,13 +68,30 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        {/* Google Analytics (GA4) */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-CFBZN9WW54"
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-CFBZN9WW54');
+          `}
+        </Script>
+      </head>
+
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#0b1625] text-white`}
       >
         <Header />
         {children}
 
-        {/* Visual effects (desktop cursor + mobile tap ripple) */}
+        {/* Visual effects */}
         <FireCursor />
         <TapRipple />
 
